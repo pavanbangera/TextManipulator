@@ -7,25 +7,31 @@ export default function TextForm (props) {
     const handleUpClick = () => {
         let newText = text.toUpperCase();
         setText(newText)
+        props.showAlert("Converted to UpperCase", "success")
     }
     const handleLowerClick = () => {
         let newText = text.toLowerCase();
         setText(newText)
+        props.showAlert("Converted to LowerCase", "success")
     }
     const handleClClick = () => {
         let newText = "";
         setText(newText)
+        props.showAlert("Cleared Text", "warning")
     }
     const handleCopyClick = () => {
         const copyText = document.getElementById("myText");
         copyText.select();
         navigator.clipboard.writeText(copyText.value);
+        document.getSelection().removeAllRanges();
+        props.showAlert("Copied", "success")
     }
     const handleExSpaceClick = () => {
         if (text.length >= 1) {
             const words = text.split(/\s+/);
             let newText = words.join(" ");
             setText(newText)
+            props.showAlert("Removed Extra spaces", "success")
         }
     }
     const handleCapClick = () => {
@@ -38,6 +44,7 @@ export default function TextForm (props) {
 
             let newText = words.join(" ");
             setText(newText)
+            props.showAlert("Capitalised", "success")
         }
 
     }
@@ -53,18 +60,18 @@ export default function TextForm (props) {
                 <div className="mb-3">
                     <textarea className={`form-control bg-${props.mode} text-${(props.mode === "light") ? "dark" : "light"}`} id="myText" value={text} onChange={handleOnChange} rows="8" ></textarea>
                 </div>
-                <button className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Conver To UpperCase</button>
-                <button className="btn btn-success mx-1 my-1" onClick={handleLowerClick}>Conver To LowerCase</button>
-                <button className="btn btn-warning mx-1 my-1" onClick={handleCapClick}>Conver To Capitalise</button>
-                <button className="btn btn-secondary mx-1 my-1" onClick={handleExSpaceClick}>Remove extra Spaces</button>
-                <button className="btn btn-dark mx-1 my-1" onClick={handleCopyClick}>Copy clipBoard</button>
-                <button className="btn btn-danger mx-1 my-1" onClick={handleClClick}>Clear</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick}>Conver To UpperCase</button>
+                <button disabled={text.length === 0} className="btn btn-success mx-1 my-1" onClick={handleLowerClick}>Conver To LowerCase</button>
+                <button disabled={text.length === 0} className="btn btn-warning mx-1 my-1" onClick={handleCapClick}>Conver To Capitalise</button>
+                <button disabled={text.length === 0} className="btn btn-secondary mx-1 my-1" onClick={handleExSpaceClick}>Remove extra Spaces</button>
+                <button disabled={text.length === 0} className="btn btn-dark mx-1 my-1" onClick={handleCopyClick}>Copy clipBoard</button>
+                <button disabled={text.length === 0} className="btn btn-danger mx-1 my-1" onClick={handleClClick}>Clear</button>
             </div>
             <div className="container my-2">
                 <h2>Your text summery</h2>
                 <p>{(text.length >= 1) ? text.split(" ").length : "0"} words and {text.length} characters</p>
                 <h2>Preview</h2>
-                <p>{text}</p>
+                <p>{(text.length >= 1) ? text : "No Preview"}</p>
             </div>
 
         </>

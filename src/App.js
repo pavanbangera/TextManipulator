@@ -32,11 +32,10 @@ function App () {
   document.body.style.backgroundColor = `${(mode === "light") ? "white" : "blue"}`
   return (
     <>
-      <Navbar title="TextUtilz" about="About Us" mode={mode} toggle={handleToggle} showAlert={showAlert} />
+      <Navbar title="TextManipulator" about="About Us" mode={mode} toggle={handleToggle} showAlert={showAlert} />
       <Alert alert={alert} />
       <div className={`container text-${(mode === "light" ? "dark" : "light")}`}>
-        <TextForm heading="Enter your text bellow" mode={mode} />
-        {/* <About /> */}
+        <TextForm heading="Enter your text bellow" mode={mode} showAlert={showAlert} />
       </div>
 
     </>
